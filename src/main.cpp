@@ -20,14 +20,14 @@ using namespace geode::prelude;
 	return c.get(reinterpret_cast<FriendeeClass__*>(v)); \
 }(value)
 
-std::map<std::string, Mod*> ALL_MODS;
+#define SETTING(type, key_name) Mod::get()->getSettingValue<type>(key_name)
 
 auto enabled = false;
 
 web::WebTask WebRequest_send(web::WebRequest* self, std::string_view method, std::string_view givenUrl) {
     if (enabled and string::contains(givenUrl.data(), "api.geode-sdk.org/v1/mods")) {
 
-        if (givenUrl == "https://api.geode-sdk.org/v1/mods") self->param("status", "pending");
+        if (givenUrl == "https://api.geode-sdk.org/v1/mods") self->param("status", SETTING(std::string, "status param"));
 
         CCNode* version = CCScene::get()->getChildByIDRecursive("version");
         CCLabelBMFont* value_label = typeinfo_cast<CCLabelBMFont*>(
