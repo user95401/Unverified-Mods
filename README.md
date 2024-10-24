@@ -1,3 +1,6 @@
+#### That's an illegal mod, the only way to get it in [releases](https://github.com/user95401/Unverified-Mods/releases)!
+> Yes, u can't find it in geode servers, download it and install manually in to mods dir.
+
 # Unverified Mods
 
 Make you able to see unverified mods.
