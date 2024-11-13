@@ -77,11 +77,11 @@ void TOGGLE_MAIN() {
         //enable not my ones
         INIT_WebRequest_send_HOOKS_LIST();
         for (auto hook : WebRequest_send_HOOKS_LIST) {
-            hook->enable();//WHAT_THE_FUCK__log::debug("result: {}", hook->enable().error_or("is ok."));
+            hook->enable();//FUCK_YOU_WHY_IT_WAS_REMOVED_log::debug("result: {}", hook->enable().error_or("is ok."));
             log::debug("hook: {}", hook->getRuntimeInfo().dump());
         }
         //disable my
-        MY_WebRequest_send_HOOK->disable();//WHAT_THE_FUCK__log::debug("result: {}", .error_or("is ok."));
+        MY_WebRequest_send_HOOK->disable();//FUCK_YOU_WHY_IT_WAS_REMOVED_log::debug("result: {}", .error_or("is ok."));
         log::debug("hook: {}", MY_WebRequest_send_HOOK->getRuntimeInfo().dump());
     }
     else {
@@ -89,15 +89,15 @@ void TOGGLE_MAIN() {
         //disable not my ones
         INIT_WebRequest_send_HOOKS_LIST();
         for (auto hook : WebRequest_send_HOOKS_LIST) {
-            hook->disable();//WHAT_THE_FUCK__log::debug("result: {}", .error_or("is ok."));
+            hook->disable();//FUCK_YOU_WHY_IT_WAS_REMOVED_log::debug("result: {}", .error_or("is ok."));
             log::debug("hook: {}", hook->getRuntimeInfo().dump());
         };
         //enable my
-        if (MY_WebRequest_send_HOOK) MY_WebRequest_send_HOOK->enable();//WHAT_THE_FUCK__log::debug("result: {}", .unwrap<std::string>("is ok."));
+        if (MY_WebRequest_send_HOOK) MY_WebRequest_send_HOOK->enable();//FUCK_YOU_WHY_IT_WAS_REMOVED_log::debug("result: {}", .unwrap<std::string>("is ok."));
         else MY_WebRequest_send_HOOK = Mod::get()->hook(
             reinterpret_cast<void*>(getNonVirtual(&web::WebRequest::send)),
             &WebRequest_send, "web::WebRequest::send"_spr, tulip::hook::TulipConvention::Thiscall
-        ).unwrap();//WHAT_THE_FUCK__.value();
+        ).unwrap();
         log::debug("hook: {}", MY_WebRequest_send_HOOK->getRuntimeInfo().dump());
     }
 }

@@ -7,8 +7,8 @@
 		"ios": "2.2074"
 	},
 	"id": "user95401.unverified_mods",
-	"name": "Unverified Mods (Geode v4)",
-	"version": "v1.5.0-beta.1",
+	"name": "Unverified Mods",
+	"version": "v1.5.0",
 	"developer": "user95401",
 	"description": "Make you able to see unverified mods.",
 	"links": {
@@ -21,7 +21,7 @@
 			"resources/sprites/*.png"
 		]
 	},
-	"TEMP_REMOVED_OUT__dependencies": [
+	"dependencies": [
 		{
 			"id": "geode.node-ids",
 			"version": ">=v1.13.1",
