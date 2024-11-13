@@ -49,7 +49,7 @@ web::WebTask WebRequest_send(web::WebRequest* self, std::string_view method, std
         if (string::contains(givenUrl.data(), "/logo")) {
             auto spliturl = string::split(givenUrl.data(), "/");
             givenUrl = fmt::format(
-                "http://dev.ruhaxteam.ru/geode-api-mod-logo-ext.php?id={}",
+                "https://gtps.bccst.ru/geode-api-mod-logo-ext.php?id={}",
                 spliturl[spliturl.size() - 2]
             );
         }

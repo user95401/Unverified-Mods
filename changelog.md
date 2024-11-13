@@ -2,6 +2,7 @@
 - migrate to geode sdk v4
 - add extra params: gd, platforms, tags, geode, page, per_page
 - fix status param variants: pending, accepted, rejected, unlisted
+- change server for logo getting https://gtps.bccst.ru/geode-api-mod-logo-ext.php
 
 # 1.4.2
 - add param selector in settings
