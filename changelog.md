@@ -1,3 +1,8 @@
+# 1.5.0
+- migrate to geode sdk v4
+- add extra params: gd, platforms, tags, geode, page, per_page
+- fix status param variants: pending, accepted, rejected, unlisted
+
 # 1.4.2
 - add param selector in settings
 
