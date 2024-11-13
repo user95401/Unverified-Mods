@@ -1,14 +1,14 @@
 {
-	"geode": "3.8.1",
+	"geode": "4.0.0-alpha.1",
 	"gd": {
-		"win": "2.206",
-		"android": "2.206",
-		"mac": "2.206",
-		"ios": "2.206"
+		"win": "2.2074",
+		"android": "2.2074",
+		"mac": "2.2074",
+		"ios": "2.2074"
 	},
 	"id": "user95401.unverified_mods",
-	"name": "Unverified Mods",
-	"version": "v1.4.1",
+	"name": "Unverified Mods (Geode v4)",
+	"version": "v1.5.0-beta.1",
 	"developer": "user95401",
 	"description": "Make you able to see unverified mods.",
 	"links": {
@@ -21,7 +21,7 @@
 			"resources/sprites/*.png"
 		]
 	},
-	"dependencies": [
+	"TEMP_REMOVED_OUT__dependencies": [
 		{
 			"id": "geode.node-ids",
 			"version": ">=v1.13.1",
@@ -29,11 +29,62 @@
 		}
 	],
 	"settings": {
-		"status param": {
+		"Main prarms": {
+			"type": "title",
+			"name": "Main prarms"
+		},
+		"status": {
+			"name": "status",
+			"description": "Filter by mod version status (rejected is admin only)\nAvailable values : approved, rejected, pending, unlisted",
 			"type": "string",
-			"name": "status param",
 			"default": "pending",
-			"one-of": ["approved", "rejected", "pending", "unlisted"]
+			"one-of": [ "pending", "accepted", "rejected", "unlisted" ]
+		},
+		"Extra prarms": {
+			"type": "title",
+			"name": "Extra prarms"
+		},
+		"gd": {
+			"name": "gd",
+			"description": "Geometry Dash version",
+			"default": "",
+			"filter": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!№;%:?*()_+-=.,/|\"'@#$^&{}[]",
+			"type": "string"
+		},
+		"platforms": {
+			"name": "platforms",
+			"description": "Platforms that mods have to support, comma separated [win,android32,android64,mac,ios]\nExample : win,android32,android64",
+			"default": "",
+			"filter": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!№;%:?*()_+-=.,/|\"'@#$^&{}[]",
+			"type": "string"
+		},
+		"tags": {
+			"name": "tags",
+			"description": "Tags that mods have to have, comma separated. Can only use allowed tags.\nExample : gameplay,enhancement",
+			"default": "",
+			"filter": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!№;%:?*()_+-=.,/|\"'@#$^&{}[]",
+			"type": "string"
+		},
+		"geode": {
+			"name": "geode",
+			"description": "Geode version being used",
+			"default": "",
+			"filter": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!№;%:?*()_+-=.,/|\"'@#$^&{}[]",
+			"type": "string"
+		},
+		"page": {
+			"name": "page",
+			"description": "Page number",
+			"default": "",
+			"filter": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!№;%:?*()_+-=.,/|\"'@#$^&{}[]",
+			"type": "string"
+		},
+		"per_page": {
+			"name": "per_page",
+			"description": "Number of elements to fetch per page",
+			"default": "",
+			"filter": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!№;%:?*()_+-=.,/|\"'@#$^&{}[]",
+			"type": "string"
 		}
 	}
 }

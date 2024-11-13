@@ -27,14 +27,22 @@ auto enabled = false;
 web::WebTask WebRequest_send(web::WebRequest* self, std::string_view method, std::string_view givenUrl) {
     if (enabled and string::contains(givenUrl.data(), "api.geode-sdk.org/v1/mods")) {
 
-        if (givenUrl == "https://api.geode-sdk.org/v1/mods") self->param("status", SETTING(std::string, "status param"));
+        if (givenUrl == "https://api.geode-sdk.org/v1/mods") {
+            self->param("status", SETTING(std::string, "status"));
+            if (auto par = SETTING(std::string, "gd"); par.size() > 1) self->param("gd", par);
+            if (auto par = SETTING(std::string, "platforms"); par.size() > 1) self->param("platforms", par);
+            if (auto par = SETTING(std::string, "tags"); par.size() > 1) self->param("tags", par);
+            if (auto par = SETTING(std::string, "geode"); par.size() > 1) self->param("geode", par);
+            if (auto par = SETTING(std::string, "page"); par.size() > 1) self->param("page", par);
+            if (auto par = SETTING(std::string, "per_page"); par.size() > 1) self->param("per_page", par);
+        }
 
         CCNode* version = CCScene::get()->getChildByIDRecursive("version");
         CCLabelBMFont* value_label = typeinfo_cast<CCLabelBMFont*>(
             version ? version->getChildByIDRecursive("value-label") : nullptr
         );
         if (value_label) givenUrl = string::replace(
-            givenUrl.data(), "latest", 
+            givenUrl.data(), "latest",
             string::replace(value_label->getString(), "v", "")
         );
 
@@ -43,7 +51,7 @@ web::WebTask WebRequest_send(web::WebRequest* self, std::string_view method, std
             givenUrl = fmt::format(
                 "http://dev.ruhaxteam.ru/geode-api-mod-logo-ext.php?id={}",
                 spliturl[spliturl.size() - 2]
-                );
+            );
         }
 
     }
@@ -69,11 +77,11 @@ void TOGGLE_MAIN() {
         //enable not my ones
         INIT_WebRequest_send_HOOKS_LIST();
         for (auto hook : WebRequest_send_HOOKS_LIST) {
-            log::debug("result: {}", hook->enable().error_or("is ok."));
+            hook->enable();//WHAT_THE_FUCK__log::debug("result: {}", hook->enable().error_or("is ok."));
             log::debug("hook: {}", hook->getRuntimeInfo().dump());
         }
         //disable my
-        log::debug("result: {}", MY_WebRequest_send_HOOK->disable().error_or("is ok."));
+        MY_WebRequest_send_HOOK->disable();//WHAT_THE_FUCK__log::debug("result: {}", .error_or("is ok."));
         log::debug("hook: {}", MY_WebRequest_send_HOOK->getRuntimeInfo().dump());
     }
     else {
@@ -81,15 +89,15 @@ void TOGGLE_MAIN() {
         //disable not my ones
         INIT_WebRequest_send_HOOKS_LIST();
         for (auto hook : WebRequest_send_HOOKS_LIST) {
-            log::debug("result: {}", hook->disable().error_or("is ok."));
+            hook->disable();//WHAT_THE_FUCK__log::debug("result: {}", .error_or("is ok."));
             log::debug("hook: {}", hook->getRuntimeInfo().dump());
         };
         //enable my
-        if (MY_WebRequest_send_HOOK) log::debug("result: {}", MY_WebRequest_send_HOOK->enable().error_or("is ok."));
+        if (MY_WebRequest_send_HOOK) MY_WebRequest_send_HOOK->enable();//WHAT_THE_FUCK__log::debug("result: {}", .unwrap<std::string>("is ok."));
         else MY_WebRequest_send_HOOK = Mod::get()->hook(
             reinterpret_cast<void*>(getNonVirtual(&web::WebRequest::send)),
             &WebRequest_send, "web::WebRequest::send"_spr, tulip::hook::TulipConvention::Thiscall
-        ).value();
+        ).unwrap();//WHAT_THE_FUCK__.value();
         log::debug("hook: {}", MY_WebRequest_send_HOOK->getRuntimeInfo().dump());
     }
 }

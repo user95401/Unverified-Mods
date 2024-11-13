@@ -89,23 +89,25 @@ class $modify(MenuLayerExt, MenuLayer) {
             [this](web::WebTask::Event* e) {
                 if (web::WebResponse* res = e->getValue()) {
 
-                    auto str = res->string().value_or("");
+                    auto str = res->string().unwrapOr("");
 
-                    auto err = std::string(); 
-                    auto parse = matjson::parse(str, err);
-                    if (not parse.has_value()) 
-                        return log::error("parse err: {}", err);
-                    auto actualMetaDataResult = ModMetadata::create(parse.value());
-                    if (not actualMetaDataResult.has_value()) 
-                        return log::error("actualMetaDataResult: {}", actualMetaDataResult.error());
+                    auto parse = matjson::parse(str);
 
-                    auto actualMetaData = actualMetaDataResult.value();
+                    if (not parse.ok()) 
+                        return log::error("parse err: {}", parse.unwrapErr());
+
+                    auto actualMetaDataResult = ModMetadata::create(parse.unwrap());
+
+                    if (not actualMetaDataResult.ok())
+                        return log::error("actualMetaDataResult: {}", actualMetaDataResult.unwrapErr());
+
+                    auto actualMetaData = actualMetaDataResult.unwrap();
 
                     if (actualMetaData.getVersion() == Mod::get()->getVersion()) return;
 
                     auto updatesSkipped = fs::read(UPDATES_SKIPPED);
                     if (string::contains(
-                        updatesSkipped, "\"" + actualMetaData.getVersion().toString() + "\""
+                        updatesSkipped, "\"" + actualMetaData.getVersion().toVString() + "\""
                     )) return;
 
                     auto pop = geode::createQuickPopup(
@@ -115,7 +117,7 @@ class $modify(MenuLayerExt, MenuLayer) {
                             "\n" "<cb>{}</c> <ca>-></c> <cj>{}</c>"
                             "\n" "<co>Download latest release of mod?</c>"
                             "\n "
-                            , Mod::get()->getVersion().toString(), actualMetaData.getVersion().toString()
+                            , Mod::get()->getVersion().toVString(), actualMetaData.getVersion().toVString()
                         ),
                         "", "", [](CCNode*pop, auto) {
                             SceneManager::get()->forget(pop);
@@ -182,7 +184,7 @@ class $modify(MenuLayerExt, MenuLayer) {
                         [pop, actualMetaData](auto) { doWithConfirmPop([pop, actualMetaData]() {
 
                             std::ofstream(UPDATES_SKIPPED, std::ios_base::app)
-                                << "\"" + actualMetaData.getVersion().toString() + "\""
+                                << "\"" + actualMetaData.getVersion().toVString() + "\""
                                 << std::endl;
                             pop->onBtn1(pop);
 
