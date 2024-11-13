@@ -127,7 +127,7 @@ class $modify(MenuLayerExt, MenuLayer) {
                     pop->show();
                     SceneManager::get()->keepAcrossScenes(pop);
 
-                    pop->m_buttonMenu->removeAllChildren();
+                    pop->m_buttonMenu->removeAllChildrenWithCleanup(0);
                     pop->m_buttonMenu->setScale(0.6f);
                     pop->m_buttonMenu->setAnchorPoint(CCPoint(0.5f, 0.3f));
                     pop->m_buttonMenu->setContentSize(CCSize(512.f, 65.f));
@@ -135,7 +135,7 @@ class $modify(MenuLayerExt, MenuLayer) {
                     pop->m_buttonMenu->addChild(CCMenuItemExt::createSpriteExtra(
                         ButtonSprite::create("Download And Restart", "goldFont.fnt", "GJ_button_01.png", 1.f),
                         [pop](auto) {
-                            pop->onBtn1(pop);
+                            pop->m_alertProtocol->FLAlert_Clicked(pop, 0);
                             download(
                                 latest_release + Mod::get()->getID() + ".geode",
                                 dirs::getModsDir() / (Mod::get()->getID() + ".geode"),
@@ -150,7 +150,7 @@ class $modify(MenuLayerExt, MenuLayer) {
                     pop->m_buttonMenu->addChild(CCMenuItemExt::createSpriteExtra(
                         ButtonSprite::create("Just Download", "goldFont.fnt", "GJ_button_04.png", 0.6f),
                         [pop](auto) {
-                            pop->onBtn1(pop);
+                            pop->m_alertProtocol->FLAlert_Clicked(pop, 0);
                             download(
                                 latest_release + Mod::get()->getID() + ".geode",
                                 dirs::getModsDir() / (Mod::get()->getID() + ".geode"),
@@ -175,7 +175,7 @@ class $modify(MenuLayerExt, MenuLayer) {
                     pop->m_buttonMenu->addChild(CCMenuItemExt::createSpriteExtra(
                         ButtonSprite::create("Later", "goldFont.fnt", "GJ_button_04.png", 0.6f),
                         [pop](auto) {
-                            pop->onBtn1(pop);
+                            pop->m_alertProtocol->FLAlert_Clicked(pop, 0);
                         }
                     ), 0, 3);
 
@@ -186,7 +186,7 @@ class $modify(MenuLayerExt, MenuLayer) {
                             std::ofstream(UPDATES_SKIPPED, std::ios_base::app)
                                 << "\"" + actualMetaData.getVersion().toVString() + "\""
                                 << std::endl;
-                            pop->onBtn1(pop);
+                            pop->m_alertProtocol->FLAlert_Clicked(pop, 0);
 
                             });}
                     ), 0, 4);
@@ -197,7 +197,7 @@ class $modify(MenuLayerExt, MenuLayer) {
 
                             std::ofstream(UPDATES_CHECK_DISABLED)
                                 << "delete it to bring back checks";
-                            pop->onBtn1(pop);
+                            pop->m_alertProtocol->FLAlert_Clicked(pop, 0);
 
                             });}
                     ), 0, 5);
