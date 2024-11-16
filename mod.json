@@ -1,5 +1,5 @@
 {
-	"geode": "4.0.0-alpha.1",
+	"geode": "4.0.0-beta.1",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
@@ -8,7 +8,7 @@
 	},
 	"id": "user95401.unverified_mods",
 	"name": "Unverified Mods",
-	"version": "v1.5.0",
+	"version": "v1.5.1",
 	"developer": "user95401",
 	"description": "Make you able to see unverified mods.",
 	"links": {
