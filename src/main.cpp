@@ -119,11 +119,14 @@ class $modify(ModListButtons, CCMenuItem) {
                 findFirstChildRecursive<FLAlertLayer>(CCScene::get(),
                     [](FLAlertLayer* __this) {
 
-                        if (!findFirstChildRecursive<CCMenuItem>(
-                            __this, [](CCMenuItem* item) {
+                        findFirstChildRecursive<CCMenuItemSpriteExtra>(
+                            __this, [](CCMenuItemSpriteExtra* item) {
+                                auto image_cast = typeinfo_cast<ButtonSprite*>(item->getNormalImage());
+                                if (!image_cast) return false;
+                                if (image_cast->m_caption.c_str() != std::string("OK")) return false;
                                 auto& org_pfnSelector = item->m_pfnSelector;
                                 auto& org_pListener = item->m_pListener;
-                                CCMenuItemExt::assignCallback<CCMenuItem>(item,
+                                if (org_pListener and org_pfnSelector) CCMenuItemExt::assignCallback<CCMenuItem>(item,
                                     [org_pfnSelector, org_pListener](CCMenuItem* item) {
                                         (org_pListener->*org_pfnSelector)(item);
                                         if (auto reload_btn = typeinfo_cast<CCMenuItem*>(
@@ -131,9 +134,9 @@ class $modify(ModListButtons, CCMenuItem) {
                                         )) reload_btn->activate();
                                     }
                                 );
-                                return false;
+                                return true;
                             }
-                        ));
+                        );
 
                         return true;
                     }

@@ -1,3 +1,11 @@
+# 1.5.2
+- use sdk v4.3.1
+- fix the toggle button of "Enabled Mods only" option in search filters
+- try to add support for iOS
+
+# 1.5.1
+- use sdk v4 beta
+
 # 1.5.0
 - migrate to geode sdk v4
 - add extra params: gd, platforms, tags, geode, page, per_page
